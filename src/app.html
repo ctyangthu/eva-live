@@ -293,10 +293,10 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax
 .ttcount{font-size:12px;color:var(--muted);margin:8px 2px 0}
 
 /* destinations */
-.ports{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
-.ports div{background:var(--surface-2);border-radius:10px;padding:8px 10px;display:grid}
+.ports{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.ports div{background:var(--surface-2);border-radius:10px;padding:7px 9px;display:grid;min-width:0}
 .ports b{font:600 22px/1.1 var(--font-display);font-variant-numeric:tabular-nums}
-.ports span{font-size:12px;color:var(--muted)}
+.ports span{font-size:11.5px;color:var(--muted);line-height:1.3}
 .dgroup h4{margin:10px 4px 4px;font-size:12.5px;display:flex;align-items:center;gap:7px}
 .dgroup h4 i{width:9px;height:9px;border-radius:2px;background:var(--rc)}
 .dgroup h4 small{font-weight:400;color:var(--muted);margin-left:auto}
@@ -458,7 +458,7 @@ main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax
       </section>
 
       <p class="foot" id="foot">
-        班表整理自 <a href="https://www.aerolopa.com/routes/br/boeing-777-300er" target="_blank" rel="noopener">AeroLOPA</a> 各機型航線與航線時刻（2026/11/2–2027/3/3）及 <a href="https://www.aeroroutes.com/eng/tag/EVA+Air" target="_blank" rel="noopener">AeroRoutes</a> 長榮航空 NW26 航線公告，整理於 2026/11/3。航班狀態與位置依表定時間與大圓航線推算，不含延誤、取消、改降等即時資訊；同一航班常輪替機型，所列為該期間最常執飛的機型。本系統為非官方展示，與長榮航空無關，實際航班請以長榮航空公告為準。
+        班表整理自機場官方資料（<a href="https://www.taoyuan-airport.com/" target="_blank" rel="noopener">桃園</a>即時航班、<a href="https://www.tsa.gov.tw/flights/international/regular" target="_blank" rel="noopener">松山</a>與<a href="https://www.kia.gov.tw/FLIPLAN.html" target="_blank" rel="noopener">高雄</a>定期班表）、<a href="https://www.aerolopa.com/routes/br/boeing-777-300er" target="_blank" rel="noopener">AeroLOPA</a> 及 <a href="https://www.aeroroutes.com/eng/tag/EVA+Air" target="_blank" rel="noopener">AeroRoutes</a>，查核於 2026/11/4。只列長榮航空（BR）自營定期航班，不含他航執飛的共掛班號（BR2xxx、BR3xxx）、立榮航空（B7）與包機。航班狀態與位置依表定時間與大圓航線推算，不含延誤、取消、改降等即時資訊；同一航班常輪替機型，所列為該期間最常執飛的機型。本系統為非官方展示，與長榮航空無關，實際航班請以長榮航空公告為準。
       </p>
     </aside>
   </main>
@@ -544,7 +544,9 @@ function zoned(D, min, tz){  // local wall time on date D → UTC ms
 
 /* ── flight segments ─────────────────────────────── */
 const BASE_D = {y:2026, mo:11, d:4};
+const idCount = {};
 const SEGS = FL.segs.map((r, i) => {
+  const base = `${r.no}-${r.o}${r.d}`, nth = idCount[base] = (idCount[base] || 0) + 1;
   const A = AP[r.o].v, B = AP[r.d].v, om = Math.acos(clamp(dot(A, B), -1, 1));
   const dir = TW.has(r.o) ? 'out' : TW.has(r.d) ? 'in' : 'via';
   // the far end decides the region; for Bangkok–Europe legs that is the European city
@@ -552,12 +554,16 @@ const SEGS = FL.segs.map((r, i) => {
   const days = r.days ? [...'1234567'].map(c => r.days.includes(c)) : null;
   const depM = toMin(r.dep), arrM = toMin(r.arr);
   const blk = (zoned(dateAdd(BASE_D, r.plus), arrM, AP[r.d].tz) - zoned(BASE_D, depM, AP[r.o].tz))/6e4;
-  return {...r, i, id:`${r.no}-${r.o}${r.d}`, dir, far, region: AP[far].region, days,
+  return {...r, i, id: nth > 1 ? `${base}~${nth}` : base, dir, far, region: AP[far].region, days, skip: r.skip ? r.skip.split(',') : [],
           wk: days ? days.filter(Boolean).length : r.freq, depM, arrM, A, B, om, km: om*EARTH_KM, blk};
 });
 const BYNO = new Map();
 for (const s of SEGS){ if (!BYNO.has(s.no)) BYNO.set(s.no, []); BYNO.get(s.no).push(s); }
-for (const legs of BYNO.values()) legs.forEach((s, k) => { s.legs = legs; s.leg = k; s.out = legs[0].dir === 'out'; });
+for (const segs of BYNO.values()){
+  // repeated airport pairs are timing variants of one flight (BR156 by weekday); otherwise the lines are legs of a multi-stop flight
+  const multi = new Set(segs.map(s => s.o + s.d)).size === segs.length;
+  segs.forEach((s, k) => { s.legs = multi ? segs : [s]; s.leg = multi ? k : 0; s.out = s.legs[0].dir === 'out'; });
+}
 for (const s of SEGS){
   if (s.out) AP[s.d].wkOut += s.wk;           // includes Bangkok–Europe legs of trips from Taiwan
   if (s.legs[s.legs.length-1].dir === 'in') AP[s.o].wkIn += s.wk;
@@ -573,10 +579,10 @@ for (const s of SEGS){
 for (const r of ROUTES.values()){ const s = r.segs[0]; r.pts = gcPts(s.A, s.B, s.om); }
 const WK_OUT = SEGS.filter(s => TW.has(s.o)).reduce((n, s) => n + s.wk, 0);
 const UNKNOWN = SEGS.filter(s => !s.days && TW.has(s.o));
-$('brandSub').textContent = `臺灣出發國際線 · ${FARS.length} 個航點 · 2026/27 冬季班表 · 非官方展示`;
+$('brandSub').textContent = `桃園、松山、高雄國際線 · ${FARS.length} 個航點 · 2026/27 冬季班表 · 非官方展示`;
 
-const operates = (s, D) => { if (!s.days || !s.days[wdOf(D)]) return false; const k = dkey(D); return !(s.from && k < s.from) && !(s.to && k > s.to); };
-const daysText = s => !s.days ? `每週 ${s.freq} 班` : (s.wk === 7 ? '每日' : '週' + s.days.map((v, i) => v ? DAY[i] : '').join('')) + (s.from ? ` · ${+s.from.slice(5,7)}/${+s.from.slice(8)} 起` : '');
+const operates = (s, D) => { if (!s.days || !s.days[wdOf(D)]) return false; const k = dkey(D); return !(s.from && k < s.from) && !(s.to && k > s.to) && !s.skip.includes(k); };
+const daysText = s => !s.days ? `每週 ${s.freq} 班` : (s.wk === 7 ? '每日' : '週' + s.days.map((v, i) => v ? DAY[i] : '').join('')) + (s.from ? ` · ${+s.from.slice(5,7)}/${+s.from.slice(8)} 起` : '') + (s.to ? ` · 至 ${+s.to.slice(5,7)}/${+s.to.slice(8)}` : '');
 const fno = no => no.replace('BR', 'BR ');
 
 /* instances: one segment flown on one origin-local date */
@@ -662,7 +668,7 @@ const LBL = {TPE:[-10,4,'end'], TSA:[8,-6,'start'], KHH:[-9,6,'end'], HND:[-8,13
   SEA:[8,9,'start'], YVR:[8,-4,'start'], SFO:[-8,1,'end'], LAX:[8,9,'start'], JFK:[8,-3,'start'], IAD:[8,11,'start'],
   DFW:[-8,5,'end'], IAH:[8,10,'start'], LHR:[-8,1,'end'], AMS:[8,-3,'start'], CDG:[-8,10,'end'], MUC:[8,1,'start'], VIE:[8,9,'start'], MXP:[-8,12,'end'],
   SGN:[8,8,'start'], KTI:[-8,6,'end'], HAN:[-8,2,'end'], DAD:[8,6,'start'], CNX:[-8,2,'end'], BKK:[-8,10,'end'], SIN:[8,8,'start'], KUL:[-8,5,'end'],
-  ICN:[-8,2,'end'], PUS:[8,6,'start'], FUK:[-8,6,'end'], KMQ:[-8,-3,'end'], SDJ:[8,6,'start'], AOJ:[8,2,'start'], CTS:[8,4,'start'], OKA:[8,8,'start']};
+  ICN:[-8,2,'end'], GMP:[8,-3,'start'], PUS:[8,6,'start'], MYJ:[8,8,'start'], FUK:[-8,6,'end'], KMQ:[-8,-3,'end'], SDJ:[8,6,'start'], AOJ:[8,2,'start'], CTS:[8,4,'start'], OKA:[8,8,'start']};
 const apEls = new Map();
 for (const a of Object.values(AP)){
   const tw = TW.has(a.code), hub = a.code === 'TPE', [lx, ly, anc] = LBL[a.code] || [8, 4, 'start'];
@@ -930,11 +936,11 @@ function renderSummary(){
     `<span class="bar"><b style="width:${(o.n/max*100).toFixed(1)}%;background:var(--r-${o.r})"></b></span><span class="n">${o.n}</span><small>${o.a} 架</small></button>`).join('');
   const [v0, v1] = FL.valid, inSeason = k >= v0 && k <= v1;
   const unk = UNKNOWN.map(s => `${AP[s.o].name}—${AP[s.d].name}（每週 ${s.freq} 班）`).join('、');
-  const del = SEGS.find(s => s.from && s.from > k && s.dir === 'out');
+  const del = SEGS.find(s => s.from > k && s.dir === 'out' && SEGS.filter(v => v.far === s.far).every(v => v.from > k));   // a whole destination not started yet
   $('sumNote').innerHTML = (inSeason ? '' : `<span class="warn">所選日期不在冬季班表期間（${v0.replace(/-/g,'/')}–${v1.replace(/-/g,'/')}），暫以本班表推算。</span><br>`) +
     `每週自臺灣出發 <b>${WK_OUT}</b> 班，飛往 ${FARS.length} 個國際航點。` +
     (del ? `${AP[del.d].name}航線 ${+del.from.slice(5,7)}/${+del.from.slice(8)} 首航。` : '') +
-    (unk ? `${unk}的行駛星期未公開，只列入時刻表。` : '');
+    (unk ? `${unk}的行駛星期未公開，只列入時刻表。` : '') + '清泉崗沒有長榮自營國際線。';
 }
 document.addEventListener('click', e => {
   const rg = e.target.closest('.rg'); if (rg) setView(rg.dataset.r);
@@ -1049,8 +1055,9 @@ const segKmTW = c => { const s = SEGS.find(s => s.far === c && s.dir !== 'via');
 
 /* destinations */
 function renderDest(){
-  const ports = ['TPE','TSA','KHH'].map(c => `<div><b>${AP[c].wkOut}</b><span>${AP[c].short} ${c} 每週出發</span></div>`).join('');
-  let h = `<div class="ports">${ports}</div>`;
+  const ports = ['TPE','TSA','KHH'].map(c => `<div><b>${AP[c].wkOut}</b><span>${AP[c].short} ${c}</span></div>`).join('') +
+    `<div title="清泉崗往澳門由澳門航空 NX671–674 執飛，長榮僅共掛 BR3497–3500"><b>0</b><span>清泉崗 RMQ</span></div>`;
+  let h = `<div class="ports">${ports}</div><p class="note" style="margin:0 4px 8px">各機場每週出發班次。清泉崗沒有長榮自營國際線，往澳門為澳門航空 NX671–674，長榮僅共掛 BR3497–3500。</p>`;
   for (const r of REG_ORDER){
     const list = FARS.filter(a => a.region === r).sort((a, b) => b.wkOut - a.wkOut || segKm(a.code) - segKm(b.code)); if (!list.length) continue;
     h += `<div class="dgroup" style="${rc(r)}"><h4><i></i>${REG[r]}<small>${list.length} 個航點 · 每週 ${list.reduce((n, a) => n + a.wkOut, 0)} 班</small></h4>`;
@@ -1100,8 +1107,10 @@ function renderDetail(){
     }).join('') + '</ul>';
   }
   if (s.days){
-    const cw = x ? wdOf(x.D) : -1;
-    h += `<div class="dayrow">班期 <span class="dd">${s.days.map((v, i) => `<i class="${v ? 'on' : ''}${i === cw ? ' cur' : ''}">${DAY[i]}</i>`).join('')}</span> <span>${s.wk === 7 ? '每日' : `每週 ${s.wk} 班`}</span></div>`;
+    // a flight timed differently by weekday: the row shows every day it flies, the note lists the timings
+    const cw = x ? wdOf(x.D) : -1, sib = BYNO.get(s.no).filter(v => v.o === s.o && v.d === s.d && v.days), wk = sib.reduce((n, v) => n + v.wk, 0);
+    h += `<div class="dayrow">班期 <span class="dd">${DAY.map((d, i) => `<i class="${sib.some(v => v.days[i]) ? 'on' : ''}${i === cw ? ' cur' : ''}">${d}</i>`).join('')}</span> <span>${wk === 7 ? '每日' : `每週 ${wk} 班`}</span></div>`;
+    if (sib.length > 1) h += `<p class="note">依星期有不同時刻：${sib.map(v => `${daysText(v)} ${v.dep} 起飛`).join('、')}。</p>`;
   }
   h += `<p class="fleet">時間為當地表定時間。位置沿大圓航線，依表定時間扣除約 ${TAXI_OUT} 分鐘滑行出發、${TAXI_IN} 分鐘滑行抵達推算；速度、高度為估算值，不含延誤等即時資訊。</p>`;
   box.innerHTML = h;

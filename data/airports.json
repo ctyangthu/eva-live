@@ -25,7 +25,9 @@
     "KMQ": ["小松", "小松機場", "Komatsu", "日本", "nea", 36.3946, 136.4065, "Asia/Tokyo"],
     "AOJ": ["青森", "青森機場", "Aomori", "日本", "nea", 40.7347, 140.6908, "Asia/Tokyo"],
     "OKA": ["沖繩", "那霸機場", "Okinawa", "日本", "nea", 26.1958, 127.6459, "Asia/Tokyo"],
+    "MYJ": ["愛媛松山", "松山機場", "Matsuyama", "日本", "nea", 33.8272, 132.6997, "Asia/Tokyo"],
     "ICN": ["首爾", "仁川機場", "Seoul Incheon", "韓國", "nea", 37.4602, 126.4407, "Asia/Seoul"],
+    "GMP": ["首爾", "金浦機場", "Seoul Gimpo", "韓國", "nea", 37.5583, 126.7906, "Asia/Seoul"],
     "PUS": ["釜山", "金海機場", "Busan", "韓國", "nea", 35.1795, 128.9382, "Asia/Seoul"],
 
     "HKG": ["香港", "香港國際機場", "Hong Kong", "香港", "cn", 22.3080, 113.9185, "Asia/Hong_Kong"],

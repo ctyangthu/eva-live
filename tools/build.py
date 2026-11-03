@@ -15,7 +15,7 @@ airports.pop("_fields", None)
 geo = json.loads((ROOT / "data" / "map.json").read_text(encoding="utf-8"))
 
 compact = lambda o: json.dumps(o, ensure_ascii=False, separators=(",", ":"))
-flights = {"season": "NW26", "valid": ["2026-10-25", "2027-03-27"], "updated": "2026-11-03", "segs": segs}
+flights = {"season": "NW26", "valid": ["2026-10-25", "2027-03-27"], "updated": "2026-11-04", "segs": segs}
 body = (src.replace("__FLIGHTS_JSON__", compact(flights))
            .replace("__AIRPORTS_JSON__", compact(airports))
            .replace("__MAP_JSON__", compact(geo)))

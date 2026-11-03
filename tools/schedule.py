@@ -22,7 +22,7 @@ def parse(path=SCHEDULE):
         else: seg["days"] = "".join(sorted(set(days)))
         for kv in opts.split():
             k, v = kv.split("=", 1)
-            if k not in ("from", "to"): raise ValueError(f"{path.name}:{n}: unknown option {k}")
+            if k not in ("from", "to", "skip"): raise ValueError(f"{path.name}:{n}: unknown option {k}")
             seg[k] = v
         segs.append(seg)
     return segs
