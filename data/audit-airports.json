@@ -1,59 +1,35 @@
 {
- "checked": "2026-11-11",
+ "checked": "2026-11-14",
  "sources": [
   {
    "title": "桃園機場 即時航班",
-   "flights": 593,
+   "flights": 614,
    "days": [
-    "2026-11-10",
-    "2026-11-11",
-    "2026-11-12"
+    "2026-11-13",
+    "2026-11-14",
+    "2026-11-15"
    ],
    "missing": [
     {
-     "day": "2026-11-11",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
-     "no": "BR326",
-     "time": "01:05",
-     "other": "BNE"
+     "no": "BR3502",
+     "time": "09:20",
+     "other": "IST"
+    },
+    {
+     "day": "2026-11-14",
+     "airport": "TPE",
+     "io": "dep",
+     "no": "BR3501",
+     "time": "11:00",
+     "other": "IST"
     }
    ],
    "extra": [
     {
-     "day": "2026-11-10",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR2900",
-     "time": "15:30",
-     "other": "HKG"
-    },
-    {
-     "day": "2026-11-10",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR326",
-     "time": "05:05",
-     "other": "BNE"
-    },
-    {
-     "day": "2026-11-10",
-     "airport": "TPE",
-     "io": "dep",
-     "no": "BR2899",
-     "time": "16:30",
-     "other": "HKG"
-    },
-    {
-     "day": "2026-11-11",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR2892",
-     "time": "20:40",
-     "other": "HKG"
-    },
-    {
-     "day": "2026-11-11",
+     "day": "2026-11-13",
      "airport": "TPE",
      "io": "arr",
      "no": "BR2906",
@@ -61,15 +37,7 @@
      "other": "MFM"
     },
     {
-     "day": "2026-11-11",
-     "airport": "TPE",
-     "io": "dep",
-     "no": "BR2891",
-     "time": "21:40",
-     "other": "HKG"
-    },
-    {
-     "day": "2026-11-11",
+     "day": "2026-11-13",
      "airport": "TPE",
      "io": "dep",
      "no": "BR2905",
@@ -77,7 +45,7 @@
      "other": "MFM"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
      "no": "BR2896",
@@ -85,15 +53,15 @@
      "other": "HKG"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
-     "no": "BR2906",
-     "time": "19:10",
+     "no": "BR2908",
+     "time": "20:30",
      "other": "MFM"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "dep",
      "no": "BR2895",
@@ -101,67 +69,63 @@
      "other": "HKG"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "dep",
-     "no": "BR2905",
-     "time": "20:10",
+     "no": "BR2907",
+     "time": "21:30",
      "other": "MFM"
+    },
+    {
+     "day": "2026-11-15",
+     "airport": "TPE",
+     "io": "arr",
+     "no": "BR3397",
+     "time": "18:35",
+     "other": "AKL"
+    },
+    {
+     "day": "2026-11-15",
+     "airport": "TPE",
+     "io": "dep",
+     "no": "BR3398",
+     "time": "20:25",
+     "other": "AKL"
     }
    ],
    "moved": [
     {
-     "day": "2026-11-10",
+     "day": "2026-11-13",
      "airport": "TPE",
      "io": "arr",
      "no": "BR17",
-     "published": "05:40",
+     "published": "05:55",
      "ours": "06:00",
      "other": "SFO",
      "other_ours": "SFO"
     },
     {
-     "day": "2026-11-10",
+     "day": "2026-11-13",
      "airport": "TPE",
      "io": "arr",
-     "no": "BR35",
-     "published": "06:05",
-     "ours": "06:10",
-     "other": "YYZ",
-     "other_ours": "YYZ"
+     "no": "BR3",
+     "published": "06:25",
+     "ours": "06:05",
+     "other": "IAD",
+     "other_ours": "IAD"
     },
     {
-     "day": "2026-11-10",
+     "day": "2026-11-13",
      "airport": "TPE",
      "io": "arr",
      "no": "BR49",
-     "published": "05:10",
+     "published": "05:05",
      "ours": "05:25",
      "other": "DFW",
      "other_ours": "DFW"
     },
     {
-     "day": "2026-11-10",
-     "airport": "TPE",
-     "io": "dep",
-     "no": "BR164",
-     "published": "14:25",
-     "ours": "14:30",
-     "other": "PUS",
-     "other_ours": "PUS"
-    },
-    {
-     "day": "2026-11-10",
-     "airport": "TPE",
-     "io": "dep",
-     "no": "BR176",
-     "published": "14:50",
-     "ours": "14:30",
-     "other": "UKB",
-     "other_ours": "UKB"
-    },
-    {
-     "day": "2026-11-11",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
      "no": "BR157",
@@ -171,7 +135,17 @@
      "other_ours": "KMQ"
     },
     {
-     "day": "2026-11-11",
+     "day": "2026-11-14",
+     "airport": "TPE",
+     "io": "arr",
+     "no": "BR163",
+     "published": "20:55",
+     "ours": "21:00",
+     "other": "PUS",
+     "other_ours": "PUS"
+    },
+    {
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
      "no": "BR17",
@@ -181,57 +155,37 @@
      "other_ours": "SFO"
     },
     {
-     "day": "2026-11-11",
+     "day": "2026-11-14",
      "airport": "TPE",
      "io": "arr",
-     "no": "BR2908",
-     "published": "20:25",
-     "ours": "20:30",
-     "other": "MFM",
-     "other_ours": "MFM"
-    },
-    {
-     "day": "2026-11-11",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR3",
-     "published": "06:30",
-     "ours": "06:05",
-     "other": "IAD",
-     "other_ours": "IAD"
-    },
-    {
-     "day": "2026-11-11",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR35",
-     "published": "06:05",
-     "ours": "06:10",
-     "other": "YYZ",
-     "other_ours": "YYZ"
-    },
-    {
-     "day": "2026-11-11",
-     "airport": "TPE",
-     "io": "arr",
-     "no": "BR49",
+     "no": "BR55",
      "published": "05:30",
      "ours": "05:25",
-     "other": "DFW",
-     "other_ours": "DFW"
+     "other": "ORD",
+     "other_ours": "ORD"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-14",
+     "airport": "TPE",
+     "io": "dep",
+     "no": "BR261",
+     "published": "23:15",
+     "ours": "23:20",
+     "other": "MNL",
+     "other_ours": "MNL"
+    },
+    {
+     "day": "2026-11-15",
      "airport": "TPE",
      "io": "arr",
      "no": "BR17",
-     "published": "05:55",
+     "published": "05:40",
      "ours": "06:00",
      "other": "SFO",
      "other_ours": "SFO"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-15",
      "airport": "TPE",
      "io": "arr",
      "no": "BR258",
@@ -241,7 +195,17 @@
      "other_ours": "CNX"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-15",
+     "airport": "TPE",
+     "io": "arr",
+     "no": "BR2900",
+     "published": "15:15",
+     "ours": "15:30",
+     "other": "HKG",
+     "other_ours": "HKG"
+    },
+    {
+     "day": "2026-11-15",
      "airport": "TPE",
      "io": "arr",
      "no": "BR2908",
@@ -251,7 +215,17 @@
      "other_ours": "MFM"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-15",
+     "airport": "TPE",
+     "io": "arr",
+     "no": "BR35",
+     "published": "05:30",
+     "ours": "06:10",
+     "other": "YYZ",
+     "other_ours": "YYZ"
+    },
+    {
+     "day": "2026-11-15",
      "airport": "TPE",
      "io": "arr",
      "no": "BR49",
@@ -261,24 +235,14 @@
      "other_ours": "DFW"
     },
     {
-     "day": "2026-11-12",
+     "day": "2026-11-15",
      "airport": "TPE",
      "io": "dep",
-     "no": "BR176",
-     "published": "14:50",
-     "ours": "14:30",
-     "other": "UKB",
-     "other_ours": "UKB"
-    },
-    {
-     "day": "2026-11-12",
-     "airport": "TPE",
-     "io": "dep",
-     "no": "BR2907",
-     "published": "21:25",
-     "ours": "21:30",
-     "other": "MFM",
-     "other_ours": "MFM"
+     "no": "BR2899",
+     "published": "16:15",
+     "ours": "16:30",
+     "other": "HKG",
+     "other_ours": "HKG"
     }
    ]
   },
@@ -286,7 +250,7 @@
    "title": "松山機場 當日航班",
    "flights": 14,
    "days": [
-    "2026-11-11"
+    "2026-11-14"
    ],
    "missing": [],
    "extra": [],
@@ -296,13 +260,13 @@
    "title": "松山機場 定期班表（週表）",
    "flights": 104,
    "days": [
-    "2026-11-11",
-    "2026-11-12",
-    "2026-11-13",
     "2026-11-14",
     "2026-11-15",
     "2026-11-16",
-    "2026-11-17"
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20"
    ],
    "missing": [],
    "extra": [],
@@ -312,7 +276,7 @@
    "title": "清泉崗機場 當日航班",
    "flights": 4,
    "days": [
-    "2026-11-11"
+    "2026-11-14"
    ],
    "missing": [],
    "extra": [],
@@ -322,7 +286,7 @@
    "title": "清泉崗機場 定期班表（班號）",
    "flights": 4,
    "days": [
-    "2026-11-11"
+    "2026-11-14"
    ],
    "missing": [],
    "extra": [],
@@ -330,9 +294,9 @@
   },
   {
    "title": "高雄機場 當日航班",
-   "flights": 14,
+   "flights": 16,
    "days": [
-    "2026-11-11"
+    "2026-11-14"
    ],
    "missing": [],
    "extra": [],
@@ -340,11 +304,8 @@
   },
   {
    "title": "高雄機場 定期班表（四週）",
-   "flights": 570,
+   "flights": 506,
    "days": [
-    "2026-11-11",
-    "2026-11-12",
-    "2026-11-13",
     "2026-11-14",
     "2026-11-15",
     "2026-11-16",
